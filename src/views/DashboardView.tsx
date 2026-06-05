@@ -22,7 +22,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   const progress = steps.length > 0 ? Math.round((completedCount / steps.length) * 100) : 0
 
   return (
-    <div className="flex flex-col gap-6 max-w-xl mx-auto mt-8 px-2 font-sans">
+    <div className="flex flex-col gap-5 w-full max-w-5xl mx-auto mt-4 font-sans">
       <article className="bg-gradient-to-r from-slate-900 to-slate-800 rounded-2xl p-6 text-white shadow-xl relative overflow-hidden">
         <div className="absolute -right-4 -bottom-4 text-9xl font-black text-white/5 select-none pointer-events-none">🎯</div>
 

@@ -15,7 +15,7 @@ export const GoalSettingView: React.FC<GoalSettingViewProps> = ({ onSave }) => {
   }
 
   return (
-    <section className="bg-white rounded-3xl p-6 sm:p-8 shadow-xl shadow-slate-100 border border-slate-100 max-w-2xl mx-auto mt-8 font-sans">
+    <section className="bg-white rounded-3xl p-6 sm:p-8 shadow-xl shadow-slate-100 border border-slate-100 max-w-4xl mx-auto mt-4 font-sans">
       <h2 className="text-2xl font-black text-slate-800 flex items-center gap-2">🎯 なりたい自分を定義する</h2>
       <p className="text-sm text-slate-500 mt-2 mb-6 font-medium">理想の姿を、具体的につぶやいてみてください。</p>
       
