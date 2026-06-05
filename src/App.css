@@ -1,0 +1,182 @@
+import { useState, useEffect } from 'react'
+import { LoginView } from './views/LoginView'
+import { GoalSettingView } from './views/GoalSettingView'
+import { DashboardView } from './views/DashboardView'
+import type { BabyStep } from './types'
+
+export default function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [currentView, setCurrentView] = useState<'dashboard' | 'set-goal'>('set-goal')
+  const [vision, setVision] = useState('')
+  const [hasGoal, setHasGoal] = useState(false)
+
+  const [steps, setSteps] = useState<BabyStep[]>([
+    { id: 1, text: '', completed: false },
+    { id: 2, text: '', completed: false },
+    { id: 3, text: '', completed: false },
+  ])
+
+  useEffect(() => {
+    const savedVision = localStorage.getItem('v2_vision')
+    const savedSteps = localStorage.getItem('v2_steps')
+    if (savedVision) {
+      setVision(savedVision)
+      setHasGoal(true)
+      setCurrentView('dashboard')
+    }
+    if (savedSteps) setSteps(JSON.parse(savedSteps))
+  }, [])
+
+  // 🔒 パスワードの高度な認証・保存ロジック（ここが新規追加！）
+  const handleLoginAuth = (email: string, inputPassword: string): boolean => {
+    const savedPassword = localStorage.getItem('app_user_password')
+
+    if (!savedPassword) {
+      // 1. 初回ログイン時は、入力されたパスワードを「正解のパスワード」としてDBに保存
+      localStorage.setItem('app_user_password', inputPassword)
+      localStorage.setItem('app_user_email', email)
+      setIsLoggedIn(true)
+      return true
+    }
+
+    // 2. 2回目以降は、保存されている本物のパスワードと一致するか厳重にチェック
+    if (savedPassword === inputPassword) {
+      setIsLoggedIn(true)
+      return true
+    } else {
+      return false // 不一致ならログイン拒否
+    }
+  }
+
+  // 🧠 【編集可能エリア】AIタスク自動提案ルール
+  const handleSuggestAISteps = () => {
+    const lowerVision = vision.toLowerCase()
+    let suggested = [
+      '関連する本やサイトを1分だけ眺める',
+      '今日やるべきことをノートに1つ書き出す',
+      '机の上を片付けて作業の準備をする'
+    ]
+
+    if (lowerVision.includes('英語') || lowerVision.includes('英会話') || lowerVision.includes('english')) {
+      suggested = [
+        '英語のアプリを起動して1問だけ解く',
+        '洋楽、または英語の動画を1分だけ聞き流す',
+        '知っている英単語を3つノートにメモする'
+      ]
+    } else if (lowerVision.includes('プログラミング') || lowerVision.includes('コード') || lowerVision.includes('エンジニア') || lowerVision.includes('開発')) {
+      suggested = [
+        'パソコンを開いてエディタ（VS Code）を起動する',
+        '参考書、または解説サイトのコードを1行だけ眺める',
+        '次に作りたいもののアイデアを1文メモする'
+      ]
+    } else if (lowerVision.includes('ダイエット') || lowerVision.includes('筋トレ') || lowerVision.includes('運動') || lowerVision.includes('痩せる')) {
+      suggested = [
+        'その場で背伸びをして深く深呼吸を3回する',
+        'スクワットを1回だけやってみる',
+        '今日飲む水分をコップ1杯多めにする'
+      ]
+    } else if (lowerVision.includes('貯金') || lowerVision.includes('お金') || lowerVision.includes('節約')) {
+      suggested = [
+        '今日使ったお金（レシート）を1枚確認する',
+        '財布の中の不要なレシートを全て捨てる',
+        '小銭入れにある100円を貯金箱に入れる'
+      ]
+    }
+
+    const updatedSteps = [
+      { id: 1, text: suggested[0], completed: false },
+      { id: 2, text: suggested[1], completed: false },
+      { id: 3, text: suggested[2], completed: false },
+    ]
+    setSteps(updatedSteps)
+    localStorage.setItem('v2_steps', JSON.stringify(updatedSteps))
+    alert('✨ AIがあなたの目標に合わせて、最適な行動プランを作成しました！')
+  }
+
+  const handleSaveGoal = (visionText: string) => {
+    localStorage.setItem('v2_vision', visionText)
+    setVision(visionText)
+    setHasGoal(true)
+    setCurrentView('dashboard')
+  }
+
+  const handleStepTextChange = (id: number, text: string) => {
+    const updated = steps.map(step => step.id === id ? { ...step, text } : step)
+    setSteps(updated)
+    localStorage.setItem('v2_steps', JSON.stringify(updated))
+  }
+
+  const handleToggleComplete = (id: number) => {
+    const updated = steps.map(step => step.id === id ? { ...step, completed: !step.completed } : step)
+    setSteps(updated)
+    localStorage.setItem('v2_steps', JSON.stringify(updated))
+  }
+
+  // リセット時はパスワードも含めてすべて綺麗に初期化
+  const handleResetGoal = () => {
+    if (window.confirm('パスワードを含むすべてのデータを初期化して、新しいアカウントを作りますか？')) {
+      localStorage.clear() // すべて消去
+      setVision('')
+      setHasGoal(false)
+      setSteps([
+        { id: 1, text: '', completed: false },
+        { id: 2, text: '', completed: false },
+        { id: 3, text: '', completed: false },
+      ])
+      setIsLoggedIn(false)
+      setCurrentView('set-goal')
+      window.location.reload()
+    }
+  }
+
+  if (!isLoggedIn) {
+    return <LoginView onLogin={handleLoginAuth} />
+  }
+
+  return (
+    <div className="min-h-screen bg-slate-50 text-slate-800 font-sans">
+      <nav className="bg-white border-b border-slate-200 px-4 sm:px-6 py-4 sticky top-0 z-50 shadow-sm shadow-slate-100">
+        <div className="max-w-4xl mx-auto flex justify-between items-center">
+          <span className="font-black text-xl tracking-tight bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent">
+            Become.me 🚀
+          </span>
+          <div className="flex items-center gap-3">
+            {hasGoal && (
+              <button 
+                onClick={() => setCurrentView(currentView === 'dashboard' ? 'set-goal' : 'dashboard')} 
+                className="text-xs sm:text-sm font-bold px-3.5 py-2 rounded-xl border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 cursor-pointer transition-all active:scale-[0.98]"
+              >
+                {currentView === 'dashboard' ? '🎯 目標確認' : '📋 今日の行動'}
+              </button>
+            )}
+            <button 
+              onClick={handleResetGoal} 
+              className="text-xs sm:text-sm font-bold text-amber-600 px-3 py-2 rounded-xl hover:bg-amber-50 cursor-pointer border-none bg-transparent transition-all"
+            >
+              🔄 完全リセット
+            </button>
+            <button 
+              onClick={() => setIsLoggedIn(false)} 
+              className="text-xs sm:text-sm font-bold text-rose-600 px-3 py-2 rounded-xl hover:bg-rose-50 cursor-pointer border-none bg-transparent transition-all"
+            >
+              ログアウト
+            </button>
+          </div>
+        </div>
+      </nav>
+      <main className="p-4 pb-12">
+        {currentView === 'set-goal' ? (
+          <GoalSettingView onSave={handleSaveGoal} />
+        ) : (
+          <DashboardView 
+            vision={vision} 
+            steps={steps} 
+            onStepTextChange={handleStepTextChange} 
+            onToggleComplete={handleToggleComplete}
+            onSuggestAISteps={handleSuggestAISteps}
+          />
+        )}
+      </main>
+    </div>
+  )
+}
