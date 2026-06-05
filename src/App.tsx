@@ -93,7 +93,7 @@ export default function App() {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
-          'x-goog-api-key': userGeminiApiKey,
+          
         },
         body: JSON.stringify({
           contents: [{ parts: [{ text: prompt }] }],
