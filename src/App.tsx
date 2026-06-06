@@ -185,15 +185,20 @@ export default function App() {
         </div>
       )}
 
-      <header className="w-full px-4 sm:px-6 py-4 bg-white border-b border-slate-200 shadow-sm sticky top-0 z-40">
-  <button
-    type="button"
-    onClick={() => setIsMenuOpen(true)}
-    className="font-black text-2xl tracking-tight bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent border-none cursor-pointer p-0"
-    aria-label="メニューを開く"
-  >
+<header
+  role="button"
+  tabIndex={0}
+  onClick={() => setIsMenuOpen(true)}
+  onKeyDown={(e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      setIsMenuOpen(true)
+    }
+  }}
+  className="w-full px-4 sm:px-6 py-4 bg-white border-b border-slate-200 shadow-sm sticky top-0 z-40 cursor-pointer select-none"
+>
+  <span className="font-black text-2xl tracking-tight bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent">
     STEPLY
-  </button>
+  </span>
 </header>
 
       {isMenuOpen && (
