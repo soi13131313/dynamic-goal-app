@@ -230,17 +230,8 @@ export default function App() {
     className="fixed top-4 right-4 z-50 flex items-center justify-center w-14 h-14 rounded-2xl bg-slate-900 text-white border-none cursor-pointer shadow-xl hover:bg-slate-800 active:scale-[0.98] transition-all"
     aria-label="メニューを開く"
   >
-    <span className="text-3xl leading-none -mt-1">☰</span>
+    <span className="fixed top-4 right-4 text-3xl leading-none -mt-1">☰</span>
   </button>
-
-  {isMenuOpen && (
-    <button
-      type="button"
-      onClick={() => setIsMenuOpen(false)}
-      className="fixed inset-0 bg-slate-950/30 border-none z-40 cursor-default"
-      aria-label="メニューを閉じる"
-    />
-    )}
 
   <aside
     className={`fixed top-0 right-0 h-screen w-72 max-w-[82vw] bg-white z-50 shadow-2xl border-l border-slate-100 transform transition-transform duration-300 ease-out ${
