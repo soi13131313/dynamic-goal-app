@@ -194,7 +194,13 @@ export default function App() {
       <button
         type="button"
         onClick={() => setIsMenuOpen(true)}
-        className="fixed top-4 right-4 z-[9999] flex items-center justify-center w-14 h-14 rounded-2xl bg-slate-900 text-white border-none cursor-pointer shadow-xl hover:bg-slate-800 active:scale-[0.98] transition-all"
+        style={{
+          position: 'fixed',
+          top: '16px',
+          right: '16px',
+          zIndex: 9999,
+        }}
+        className="flex items-center justify-center w-14 h-14 rounded-2xl bg-slate-900 text-white border-none cursor-pointer shadow-xl hover:bg-slate-800 active:scale-[0.98] transition-all"
         aria-label="メニューを開く"
       >
         <span className="text-3xl leading-none">☰</span>
