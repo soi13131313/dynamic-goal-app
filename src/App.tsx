@@ -68,21 +68,17 @@ export default function App() {
 
     try {
       const response = await fetch('/api/gemini', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify({ vision }),
-})
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ vision }),
+      })
 
-if (!response.ok) {
-  const errorText = await response.text()
-  console.error('Gemini API failed:', response.status, errorText)
-  throw new Error('Geminiとの通信に失敗しました')
-}
+      if (!response.ok) throw new Error('Gemini通信に失敗しました')
 
-const data = await response.json()
-const aiText: string = data.text || ''
+      const data = await response.json()
+      const aiText: string = data.text || ''
 
       const rawSteps = aiText.includes(',')
         ? aiText.split(',').map((str) => str.trim()).filter(Boolean)
@@ -190,79 +186,79 @@ const aiText: string = data.text || ''
       )}
 
       <header className="w-full px-4 sm:px-6 py-4 bg-white border-b border-slate-200 shadow-sm sticky top-0 z-40">
-  <span className="font-black text-2xl tracking-tight bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent">
-    STEPLY
-  </span>
-</header>
+        <span className="font-black text-2xl tracking-tight bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent">
+          STEPLY
+        </span>
+      </header>
 
-<button
-  type="button"
-  onClick={() => setIsMenuOpen(true)}
-  className="fixed top-4 right-4 z-[70] flex items-center justify-center w-14 h-14 rounded-2xl bg-slate-900 text-white border-none cursor-pointer shadow-xl hover:bg-slate-800 active:scale-[0.98] transition-all"
-  aria-label="メニューを開く"
->
-  <span className="text-3xl leading-none -mt-1">☰</span>
-</button>
+      <button
+        type="button"
+        onClick={() => setIsMenuOpen(true)}
+        className="fixed top-4 right-4 z-[9999] flex items-center justify-center w-14 h-14 rounded-2xl bg-slate-900 text-white border-none cursor-pointer shadow-xl hover:bg-slate-800 active:scale-[0.98] transition-all"
+        aria-label="メニューを開く"
+      >
+        <span className="text-3xl leading-none">☰</span>
+      </button>
 
-{isMenuOpen && (
-  <>
-    <button
-      type="button"
-      onClick={() => setIsMenuOpen(false)}
-      className="fixed inset-0 bg-slate-950/30 border-none z-50 cursor-default"
-      aria-label="メニューを閉じる"
-    />
-
-    <aside className="fixed top-0 right-0 h-screen w-72 max-w-[82vw] bg-white z-[60] shadow-2xl border-l border-slate-100 animate-[slideIn_0.2s_ease-out]">
-      <div className="flex items-center justify-between px-5 py-5 border-b border-slate-100">
-        <p className="m-0 text-sm font-black text-slate-800">メニュー</p>
-
-        <button
-          type="button"
-          onClick={() => setIsMenuOpen(false)}
-          className="w-10 h-10 rounded-xl bg-slate-100 text-slate-700 border-none cursor-pointer text-xl font-black hover:bg-slate-200 transition-all"
-          aria-label="メニューを閉じる"
-        >
-          ×
-        </button>
-      </div>
-
-      <div className="flex flex-col py-3">
-        {hasGoal && (
+      {isMenuOpen && (
+        <>
           <button
             type="button"
-            onClick={() => {
-              setCurrentView(currentView === 'dashboard' ? 'set-goal' : 'dashboard')
-              setIsMenuOpen(false)
-            }}
-            className="text-left text-sm font-bold px-5 py-4 text-slate-700 hover:bg-slate-50 border-none bg-transparent cursor-pointer"
-          >
-            {currentView === 'dashboard' ? '目標確認' : '今日の行動'}
-          </button>
-        )}
+            onClick={() => setIsMenuOpen(false)}
+            className="fixed inset-0 bg-slate-950/30 border-none z-[70] cursor-default"
+            aria-label="メニューを閉じる"
+          />
 
-        <button
-          type="button"
-          onClick={handleResetGoal}
-          className="text-left text-sm font-bold px-5 py-4 text-amber-600 hover:bg-amber-50 border-none bg-transparent cursor-pointer"
-        >
-          完全リセット
-        </button>
+          <aside className="fixed top-0 right-0 h-screen w-72 max-w-[82vw] bg-white z-[80] shadow-2xl border-l border-slate-100">
+            <div className="flex items-center justify-between px-5 py-5 border-b border-slate-100">
+              <p className="m-0 text-sm font-black text-slate-800">メニュー</p>
 
-        <button
-          type="button"
-          onClick={() => {
-            setIsLoggedIn(false)
-            setIsMenuOpen(false)
-          }}
-          className="text-left text-sm font-bold px-5 py-4 text-rose-600 hover:bg-rose-50 border-none bg-transparent cursor-pointer"
-        >
-          ログアウト
-        </button>
-      </div>
-    </aside>
-  </>
-)}
+              <button
+                type="button"
+                onClick={() => setIsMenuOpen(false)}
+                className="w-10 h-10 rounded-xl bg-slate-100 text-slate-700 border-none cursor-pointer text-xl font-black hover:bg-slate-200 transition-all"
+                aria-label="メニューを閉じる"
+              >
+                ×
+              </button>
+            </div>
+
+            <div className="flex flex-col py-3">
+              {hasGoal && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setCurrentView(currentView === 'dashboard' ? 'set-goal' : 'dashboard')
+                    setIsMenuOpen(false)
+                  }}
+                  className="text-left text-sm font-bold px-5 py-4 text-slate-700 hover:bg-slate-50 border-none bg-transparent cursor-pointer"
+                >
+                  {currentView === 'dashboard' ? '目標確認' : '今日の行動'}
+                </button>
+              )}
+
+              <button
+                type="button"
+                onClick={handleResetGoal}
+                className="text-left text-sm font-bold px-5 py-4 text-amber-600 hover:bg-amber-50 border-none bg-transparent cursor-pointer"
+              >
+                完全リセット
+              </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setIsLoggedIn(false)
+                  setIsMenuOpen(false)
+                }}
+                className="text-left text-sm font-bold px-5 py-4 text-rose-600 hover:bg-rose-50 border-none bg-transparent cursor-pointer"
+              >
+                ログアウト
+              </button>
+            </div>
+          </aside>
+        </>
+      )}
 
       <main className="w-full px-3 sm:px-5 lg:px-8 py-4 sm:py-6">
         <div className="w-full max-w-6xl mx-auto">
