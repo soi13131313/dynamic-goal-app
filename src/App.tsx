@@ -196,7 +196,7 @@ export default function App() {
   }}
   className="w-full px-4 sm:px-6 py-4 bg-white border-b border-slate-200 shadow-sm sticky top-0 z-40 cursor-pointer select-none"
 >
-  <span className="font-black text-2xl tracking-tight bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent">
+  <span className="font-black text-9xl font-bold tracking-tight bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent">
     STEPLY
   </span>
 </header>
