@@ -186,25 +186,15 @@ export default function App() {
       )}
 
       <header className="w-full px-4 sm:px-6 py-4 bg-white border-b border-slate-200 shadow-sm sticky top-0 z-40">
-        <span className="font-black text-2xl tracking-tight bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent">
-          STEPLY
-        </span>
-      </header>
-
-      <button
-        type="button"
-        onClick={() => setIsMenuOpen(true)}
-        style={{
-          position: 'fixed',
-          top: '16px',
-          right: '16px',
-          zIndex: 9999,
-        }}
-        className="flex items-center justify-center w-14 h-14 rounded-2xl bg-slate-900 text-white border-none cursor-pointer shadow-xl hover:bg-slate-800 active:scale-[0.98] transition-all"
-        aria-label="メニューを開く"
-      >
-        <span className="text-3xl leading-none">☰</span>
-      </button>
+  <button
+    type="button"
+    onClick={() => setIsMenuOpen(true)}
+    className="font-black text-2xl tracking-tight bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent border-none cursor-pointer p-0"
+    aria-label="メニューを開く"
+  >
+    STEPLY
+  </button>
+</header>
 
       {isMenuOpen && (
         <>
