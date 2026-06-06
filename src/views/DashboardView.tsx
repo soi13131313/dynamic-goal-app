@@ -24,7 +24,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   return (
     <div className="flex flex-col gap-5 w-full max-w-5xl mx-auto mt-4 font-sans">
       <article className="bg-gradient-to-r from-slate-900 to-slate-800 rounded-2xl p-6 text-white shadow-xl relative overflow-hidden">
-        <div className="absolute -right-4 -bottom-4 text-9xl font-black text-white/5 select-none pointer-events-none">🎯</div>
+        <div className="absolute -right-4 -bottom-4 text-9xl font-black text-white/5 select-none pointer-events-none"></div>
 
         <div className="flex justify-between items-start">
           <span className="text-xs font-bold bg-white/20 px-2.5 py-1 rounded-full backdrop-blur-sm tracking-wider">MY VISION</span>
@@ -65,12 +65,12 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
       <div className="bg-gradient-to-br from-indigo-50 via-indigo-100/50 to-blue-50 rounded-2xl p-5 border border-indigo-100 flex flex-col gap-3 shadow-md shadow-indigo-500/5">
         <div className="flex items-center gap-2">
-          <span className="text-xl">🧠</span>
+          <span className="text-xl"></span>
           <h3 className="m-0 text-base font-bold text-indigo-900">AIベビーステップ生成</h3>
         </div>
 
         <p className="m-0 text-xs text-indigo-700 font-medium leading-relaxed">
-          AIがあなたの目標を分析し、今日すぐに始められる具体的な行動に分解します。
+          AIがあなたの目標を分析し、今日すぐに始められる具体的な行動に細分化します。
         </p>
 
         <button
@@ -78,14 +78,14 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
           onClick={onSuggestAISteps}
           className="w-full p-3 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-700 text-white font-bold text-sm border-none cursor-pointer shadow-lg shadow-indigo-600/10 active:scale-[0.99] transition-all hover:opacity-95"
         >
-          ✨ 目標をAIで自動分解する
+         目標を自動で細分化
         </button>
       </div>
 
       <section className="bg-white rounded-2xl p-6 shadow-xl shadow-slate-100 border border-slate-100">
         <header className="flex justify-between items-center mb-6">
-          <h2 className="text-lg font-bold text-slate-800 m-0 flex items-center gap-2">📋 今日のベビーステップ</h2>
-          <span className="text-xs font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-full">毎日3つ限定</span>
+          <h2 className="text-lg font-bold text-slate-800 m-0 flex items-center gap-2">今日のベビーステップ</h2>
+          <span className="text-xs font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-full">今日の3タスク</span>
         </header>
 
         <div className="flex flex-col gap-5">

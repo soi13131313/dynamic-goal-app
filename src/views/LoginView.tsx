@@ -42,9 +42,9 @@ export const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
       <main className="w-full max-w-md rounded-3xl bg-white/80 p-8 shadow-2xl border border-white backdrop-blur-md">
         <header className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-500 to-blue-500 text-3xl shadow-xl shadow-blue-500/20 mb-4 animate-bounce">
-            🚀
+            
           </div>
-          {/* 🔥 タイトルロゴを STEPLY に完全変更しました */}
+
           <h1 className="text-4xl font-black text-slate-900 tracking-tight bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent mb-1">
             STEPLY
           </h1>
