@@ -198,13 +198,7 @@ export default function App() {
 
       {isMenuOpen && (
         <>
-          <button
-            type="button"
-            onClick={() => setIsMenuOpen(false)}
-            className="fixed inset-0 bg-slate-950/30 border-none z-[70] cursor-default"
-            aria-label="メニューを閉じる"
-          />
-
+        
           <aside className="fixed top-0 right-0 h-screen w-72 max-w-[82vw] bg-white z-[80] shadow-2xl border-l border-slate-100">
             <div className="flex items-center justify-between px-5 py-5 border-b border-slate-100">
               <p className="m-0 text-sm font-black text-slate-800">メニュー</p>
